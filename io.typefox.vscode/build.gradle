@@ -1,0 +1,32 @@
+dependencies {
+	compile "org.eclipse.xtext:org.eclipse.xtext:${xtextVersion}"
+	testCompile "org.eclipse.xtext:org.eclipse.xtext.testing:${xtextVersion}"
+	testCompile "junit:junit:4.12"
+}
+
+configurations {
+	mwe2 {
+		extendsFrom compile
+	}
+}
+
+dependencies {
+	mwe2 "org.eclipse.emf:org.eclipse.emf.mwe2.launch:2.8.3"
+	mwe2 "org.eclipse.xtext:org.eclipse.xtext.common.types:${xtextVersion}"
+	mwe2 "org.eclipse.xtext:org.eclipse.xtext.xtext.generator:${xtextVersion}"
+}
+
+task generateXtextLanguage(type: JavaExec) {
+	main = 'org.eclipse.emf.mwe2.launch.runtime.Mwe2Launcher'
+	classpath = configurations.mwe2
+	inputs.file "src/main/java/io/typefox/vscode/GenerateMyLanguage.mwe2"
+	inputs.file "src/main/java/io/typefox/vscode/MyLanguage.xtext"
+	outputs.dir "src/main/xtext-gen"
+	args += "src/main/java/io/typefox/vscode/GenerateMyLanguage.mwe2"
+	args += "-p"
+	args += "rootPath=/${projectDir}/.."
+}
+
+generateXtext.dependsOn(generateXtextLanguage)
+clean.dependsOn(cleanGenerateXtextLanguage)
+eclipse.classpath.plusConfigurations += [configurations.mwe2]

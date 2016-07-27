@@ -1,0 +1,35 @@
+buildscript {
+	repositories {
+		jcenter()
+		maven { url 'https://oss.sonatype.org/content/repositories/snapshots' }
+	}
+	dependencies {
+		classpath 'org.xtext:xtext-gradle-plugin:1.0.5'
+	}
+}
+
+subprojects {
+	ext.xtextVersion = '2.11.0-SNAPSHOT'
+	
+	repositories {
+		mavenLocal()
+		jcenter()
+		maven { url 'https://oss.sonatype.org/content/repositories/snapshots' }
+	}
+	
+	apply plugin: 'java'
+	apply plugin: 'org.xtext.xtend'
+	apply from: "${rootDir}/gradle/source-layout.gradle"
+	apply plugin: 'eclipse'
+	apply plugin: 'idea'
+	
+	group = 'io.typefox.vscode'
+	version = '0.0.1-SNAPSHOT'
+	
+	sourceCompatibility = '1.8'
+	targetCompatibility = '1.8'
+	
+	configurations.all {
+		exclude group: 'asm'
+	}
+}

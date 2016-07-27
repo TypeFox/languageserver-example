@@ -1,0 +1,2 @@
+include 'io.typefox.vscode'
+include 'io.typefox.vscode.ide'
