@@ -33,3 +33,9 @@ subprojects {
 		exclude group: 'asm'
 	}
 }
+
+task installServer(type: Copy) {
+	dependsOn(':io.typefox.vscode.ide:installDist')
+    from "io.typefox.vscode.ide/build/install/xtext-server-example"
+    into "vscode-extension/xtext-server-example"
+}
