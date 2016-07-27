@@ -17,12 +17,8 @@ export function activate(context: ExtensionContext) {
 	// The server is a locally installed Java application
 	let executable = process.platform == 'win32' ? 'xtext-server-example.bat' : 'xtext-server-example';
     let serverLauncher = context.asAbsolutePath(path.join('xtext-server-example', 'bin', executable));
-    
-    // If the extension is launched in debug mode then the debug server options are used
-    // Otherwise the run options are used
     let serverOptions: ServerOptions = {
-        run : { command: serverLauncher },
-        debug: { command: serverLauncher, args: ['-Xrunjdwp:transport=dt_socket,server=y,suspend=n,address=1044'] }
+        run : { command: serverLauncher }, debug: { command: serverLauncher }
     }
     
     // Options to control the language client
