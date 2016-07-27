@@ -1,0 +1,1 @@
+This example demonstrates the integration of an Xtext language in VS Code. The example is explained in [this blog post](http://typefox.io/building-a-vs-code-extension-with-xtext-and-the-language-server-protocol).
