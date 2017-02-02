@@ -15,14 +15,13 @@ import { LanguageClient, LanguageClientOptions, ServerOptions } from 'vscode-lan
 
 export function activate(context: ExtensionContext) {
 	// The server is a locally installed Java application
-	let executable = process.platform == 'win32' ? 'xtext-server-example.bat' : 'xtext-server-example';
-    let serverLauncher = context.asAbsolutePath(path.join('xtext-server-example', 'bin', executable));
-    let serverOptions: ServerOptions = {
-        run : { command: serverLauncher }, debug: { command: serverLauncher }
-    }
+    const executablExt = process.platform == 'win32' ? '.bat' : '';
+	const executable = 'xtext-server-example' + executablExt;
+    const command = context.asAbsolutePath(path.join('xtext-server-example', 'bin', executable));
+    const serverOptions = { command };
     
     // Options to control the language client
-    let clientOptions: LanguageClientOptions = {
+    const clientOptions: LanguageClientOptions = {
         // Register the server for plain text documents
         documentSelector: ['mydsl'],
         synchronize: {
@@ -34,7 +33,7 @@ export function activate(context: ExtensionContext) {
     }
 	
 	// Create the language client and start the client.
-	let disposable = new LanguageClient('Xtext Server', serverOptions, clientOptions).start();
+	const disposable = new LanguageClient('Xtext Server', serverOptions, clientOptions).start();
 	
 	// Push the disposable to the context's subscriptions so that the 
 	// client can be deactivated on extension deactivation
